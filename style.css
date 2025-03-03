@@ -1,0 +1,421 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0a2344;  /* 深蓝色背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.2) 1px, transparent 0),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.2) 1px, transparent 0);
+    background-size: 100px 100px;
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 600px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #5DADE2 0%, #2E86C1 100%); /* 渐变天空背景 */
+    overflow: hidden;
+}
+
+/* 雪花效果 */
+.snowflake {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: snowfall linear infinite;
+}
+
+@keyframes snowfall {
+    0% {
+        transform: translateY(-5vh) translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(20px);
+        opacity: 0.3;
+    }
+}
+
+/* 云朵装饰 */
+.game-area::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 20%;
+    width: 80px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 40px;
+    box-shadow: 
+        60px -10px 0 -5px rgba(255, 255, 255, 0.7),
+        120px 10px 0 -10px rgba(255, 255, 255, 0.7);
+    z-index: 0;
+    animation: cloudFloat 30s linear infinite;
+}
+
+@keyframes cloudFloat {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(30px); }
+    100% { transform: translateX(0); }
+}
+
+/* 地面 */
+.game-area::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(
+        to bottom,
+        #2ecc71 0%,
+        #2ecc71 30%,
+        #fff 30%,
+        #fff 100%
+    );
+    z-index: 1;
+}
+
+/* 添加装饰树 */
+.game-area::before {
+    content: '';
+    position: absolute;
+    bottom: 80px;
+    left: 10%;
+    width: 300%;
+    height: 60px;
+    background-image: 
+        linear-gradient(45deg, transparent 50%, #1a5276 50%, transparent 60%),
+        linear-gradient(45deg, transparent 45%, #2e86c1 45%, transparent 55%),
+        linear-gradient(45deg, transparent 40%, #1a5276 40%, transparent 50%);
+    background-size: 40px 40px, 60px 60px, 80px 80px;
+    background-repeat: repeat-x;
+    z-index: 2;
+}
+
+/* 添加额外的云朵装饰 */
+.game-area .clouds {
+    position: absolute;
+    top: 20%;
+    right: 20%;
+    width: 60px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 30px;
+    box-shadow: 
+        -40px -5px 0 -5px rgba(255, 255, 255, 0.7),
+        -90px 10px 0 -10px rgba(255, 255, 255, 0.7);
+    z-index: 0;
+    animation: cloudFloat 20s linear infinite reverse;
+}
+
+/* 地面元素 */
+.ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(
+        to bottom,
+        #2ecc71 0%,
+        #2ecc71 30%,
+        #fff 30%,
+        #fff 100%
+    );
+    z-index: 1;
+}
+
+/* 装饰树元素 */
+.trees {
+    position: absolute;
+    bottom: 80px;
+    left: 10%;
+    width: 300%;
+    height: 60px;
+    background-image: 
+        linear-gradient(45deg, transparent 50%, #1a5276 50%, transparent 60%),
+        linear-gradient(45deg, transparent 45%, #2e86c1 45%, transparent 55%),
+        linear-gradient(45deg, transparent 40%, #1a5276 40%, transparent 50%);
+    background-size: 40px 40px, 60px 60px, 80px 80px;
+    background-repeat: repeat-x;
+    z-index: 2;
+}
+
+.santa {
+    position: absolute;
+    left: 50px;
+    bottom: 190px;
+    width: 40px;
+    height: 60px;
+    background-color: #e74c3c;
+    border-radius: 50% 50% 0 0;
+    z-index: 10;
+    transition: transform 0.1s ease-out;
+}
+
+.santa::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 5px;
+    width: 30px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.santa::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 20px;
+    height: 10px;
+    background-color: #ffdbac;
+    border-radius: 40%;
+}
+
+.pole {
+    position: absolute;
+    left: 90px;
+    bottom: 190px;
+    width: 0;
+    height: 5px;
+    background-color: #333;
+    transform-origin: left center;
+    z-index: 5;
+    transition: width 0.05s linear;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 柱子样式改进 */
+.current-pillar, .next-pillar {
+    position: absolute;
+    bottom: 150px; /* 确保所有柱子在同一高度 */
+    width: 60px;
+    background: linear-gradient(to right, #a93226, #c0392b, #a93226);
+    z-index: 3;
+    border-top: 5px solid #7d2413;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    height: 40px !important; /* 强制所有柱子高度相同 */
+}
+
+.current-pillar {
+    left: 50px;
+}
+
+.next-pillar {
+    right: 50px;
+}
+
+/* 烟囱装饰 */
+.current-pillar::before, .next-pillar::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 10px;
+    background-color: #7d2413;
+    border-radius: 5px 5px 0 0;
+}
+
+.score {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: white;
+    z-index: 20;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.game-over-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px 40px;
+    border-radius: 10px;
+    z-index: 30;
+    display: none;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.restart-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 30;
+    box-shadow: 0 4px 0 #c0392b;
+    transition: all 0.1s ease;
+}
+
+.restart-button:hover {
+    background-color: #c0392b;
+    transform: translateX(-50%) translateY(2px);
+    box-shadow: 0 2px 0 #922b21;
+}
+
+.restart-button:active {
+    transform: translateX(-50%) translateY(4px);
+    box-shadow: 0 0 0 #922b21;
+}
+
+.instructions {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 20;
+    line-height: 1.4;
+}
+
+.debug-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 14px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 25;
+    max-width: 200px;
+    display: none; /* 默认隐藏，可以通过JS控制显示 */
+}
+
+/* 响应式调整 */
+@media (max-width: 500px) {
+    .game-container {
+        height: 80vh;
+        max-width: 90vw;
+    }
+    
+    .score {
+        font-size: 18px;
+        top: 10px;
+        left: 10px;
+    }
+    
+    .game-over-message {
+        font-size: 28px;
+        padding: 15px 30px;
+        width: 80%;
+    }
+    
+    .restart-button {
+        font-size: 16px;
+        padding: 8px 16px;
+        bottom: 15px;
+    }
+    
+    .instructions {
+        font-size: 14px;
+        bottom: 50px;
+        padding: 8px;
+    }
+    
+    .santa {
+        width: 30px;
+        height: 45px;
+    }
+    
+    .santa::before {
+        width: 22px;
+        height: 15px;
+        top: -12px;
+        left: 4px;
+    }
+    
+    .santa::after {
+        width: 15px;
+        height: 8px;
+        top: 4px;
+        left: 8px;
+    }
+    
+    .current-pillar, .next-pillar {
+        width: 50px;
+        height: 40px !important; /* 确保小屏幕上柱子高度也相同 */
+    }
+    
+    .pole {
+        height: 4px;
+    }
+    
+    .debug-info {
+        font-size: 12px;
+        top: 10px;
+        right: 10px;
+        max-width: 150px;
+    }
+}
+
+/* 小屏幕横向 */
+@media (max-height: 500px) and (orientation: landscape) {
+    .game-container {
+        height: 95vh;
+        max-width: 80vh;
+    }
+    
+    .instructions {
+        bottom: 45px;
+        font-size: 12px;
+    }
+    
+    .restart-button {
+        bottom: 10px;
+    }
+} 
